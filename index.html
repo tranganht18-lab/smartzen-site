@@ -23,7 +23,9 @@
     }
   </style>
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./css/responsive.css">
+  <link rel="stylesheet" href="./responsive.css">
 </head>
 <body>
 
@@ -155,7 +157,7 @@
       <!-- Right Visual Showcase -->
       <div class="hero-visual">
         <div class="hero-card-glow">
-          <img src="assets/images/combos/combo-phong-khach.jpg" alt="Không gian sống thông minh SmartZen">
+          <img src="assets/images/combos/combo-phong-khach.jpg" onerror="this.onerror=null;this.src='./combo-phong-khach.jpg';" alt="Không gian sống thông minh SmartZen">
           <!-- Floating Status Widget Left -->
           <div class="hero-floating-stat stat-left">
             <div class="stat-icon">
@@ -848,7 +850,7 @@
       <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 2.2rem; align-items: start;">
         <!-- Product Image Showcase -->
         <div style="background: #0D1322; border-radius: var(--radius-md); overflow: hidden; border: 1px solid rgba(0,240,255,0.2);">
-          <img id="qvProductImg" src="" alt="Sản phẩm" style="width: 100%; height: 360px; object-fit: cover;">
+          <img id="qvProductImg" src="" onerror="this.onerror=null;this.src='./'+this.src.split('/').pop();" alt="Sản phẩm" style="width: 100%; height: 360px; object-fit: cover;">
           <div style="padding: 0.8rem; display: flex; align-items: center; justify-content: space-around; font-size: 0.75rem; color: var(--text-secondary); border-top: 1px solid rgba(255,255,255,0.06);">
             <span>🛡️ Bảo hành 24T</span>
             <span>⚡ Hỗ trợ Matter</span>
@@ -908,7 +910,7 @@
 
       <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem;">
         <div>
-          <img id="comboModalImg" src="" alt="Combo" style="width: 100%; height: 260px; object-fit: cover; border-radius: var(--radius-md); border: 1px solid rgba(0,240,255,0.3);">
+          <img id="comboModalImg" src="" onerror="this.onerror=null;this.src='./'+this.src.split('/').pop();" alt="Combo" style="width: 100%; height: 260px; object-fit: cover; border-radius: var(--radius-md); border: 1px solid rgba(0,240,255,0.3);">
           <div style="margin-top: 1.2rem; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--status-success); border-radius: var(--radius-sm); padding: 0.8rem; text-align: center;">
             <span id="comboModalSavings" style="color: var(--status-success); font-weight: 700; font-size: 0.9rem;"></span>
           </div>
@@ -974,12 +976,34 @@
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="js/products-data.js"></script>
-  <script src="js/cart.js"></script>
-  <script src="js/catalog.js"></script>
-  <script src="js/dify-chatbot.js"></script>
-  <script src="js/survey.js"></script>
-  <script src="js/main.js"></script>
+  <!-- Scripts: Tự động hỗ trợ cả thư mục /js/ lẫn file ở thư mục gốc GitHub -->
+  <script>
+    (function() {
+      const scripts = [
+        'products-data.js',
+        'cart.js',
+        'catalog.js',
+        'dify-chatbot.js',
+        'survey.js',
+        'main.js'
+      ];
+      function loadNext(idx) {
+        if (idx >= scripts.length) return;
+        const file = scripts[idx];
+        const s = document.createElement('script');
+        s.src = './js/' + file;
+        s.onload = function() { loadNext(idx + 1); };
+        s.onerror = function() {
+          const sFallback = document.createElement('script');
+          sFallback.src = './' + file;
+          sFallback.onload = function() { loadNext(idx + 1); };
+          sFallback.onerror = function() { loadNext(idx + 1); };
+          document.body.appendChild(sFallback);
+        };
+        document.body.appendChild(s);
+      }
+      loadNext(0);
+    })();
+  </script>
 </body>
 </html>
