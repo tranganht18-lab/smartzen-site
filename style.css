@@ -81,7 +81,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  background-color: #070A12;
   background-color: var(--bg-space);
+  color: #F1F5F9;
   color: var(--text-primary);
   font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
@@ -91,6 +93,7 @@ html {
 }
 
 body {
+  background-color: #070A12;
   background-color: var(--bg-space);
   background-image: 
     radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.05) 0%, transparent 40%),
