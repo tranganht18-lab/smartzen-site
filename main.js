@@ -43,7 +43,7 @@ function renderCombosSection() {
   container.innerHTML = SMARTZEN_COMBOS.map(combo => `
     <div class="combo-card glass-card" data-combo-id="${combo.id}">
       <div class="combo-image-wrap">
-        <img src="${combo.image}" alt="${combo.title}" loading="lazy">
+        <img src="${combo.image}" onerror="this.onerror=null;this.src='./'+this.src.split('/').pop();" alt="${combo.title}" loading="lazy">
         <span class="badge-tag combo-badge-floating pulse">${combo.badge}</span>
         <span class="combo-savings-pill">Tiết kiệm ${formatCurrency(combo.savings)}</span>
       </div>

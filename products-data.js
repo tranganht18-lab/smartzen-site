@@ -510,3 +510,24 @@ function getProductById(id) {
 function getComboById(id) {
   return SMARTZEN_COMBOS.find(c => c.id === id);
 }
+
+// Smart Image Path Adapter: Tự động tương thích cả thư mục assets/ lẫn file phẳng trên GitHub
+(function() {
+  const testImg = new Image();
+  testImg.src = 'assets/images/combos/combo-phong-khach.jpg';
+  testImg.onerror = function() {
+    SMARTZEN_PRODUCTS.forEach(p => {
+      if (p.image && p.image.includes('/')) {
+        p.image = './' + p.image.split('/').pop();
+      }
+    });
+    SMARTZEN_COMBOS.forEach(c => {
+      if (c.image && c.image.includes('/')) {
+        c.image = './' + c.image.split('/').pop();
+      }
+    });
+    if (typeof renderCombosSection === 'function') renderCombosSection();
+    if (typeof renderFeaturedProducts === 'function') renderFeaturedProducts();
+    if (typeof renderCatalogProducts === 'function') renderCatalogProducts();
+  };
+})();

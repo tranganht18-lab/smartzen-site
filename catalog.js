@@ -90,7 +90,7 @@ const Catalog = {
     grid.innerHTML = products.map(product => `
       <div class="product-card" data-id="${product.id}">
         <div class="product-thumb-wrap">
-          <img src="${product.image}" alt="${product.name}" loading="lazy">
+          <img src="${product.image}" onerror="this.onerror=null;this.src='./'+this.src.split('/').pop();" alt="${product.name}" loading="lazy">
           ${product.badge ? `<span class="badge-tag product-badge-float pulse">${product.badge}</span>` : ''}
           <div class="product-quick-actions">
             <button class="btn-action-circle" onclick="Catalog.openQuickView('${product.id}')" title="Xem nhanh thông số">

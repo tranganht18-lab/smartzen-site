@@ -207,7 +207,7 @@ const Cart = {
 
     itemsContainer.innerHTML = this.items.map(item => `
       <div class="cart-item-card" data-id="${item.id}">
-        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+        <img src="${item.image}" onerror="this.onerror=null;this.src='./'+this.src.split('/').pop();" alt="${item.name}" class="cart-item-img">
         <div class="cart-item-details">
           <h5>${item.name}</h5>
           <div class="cart-item-price">${formatCurrency(item.price)}</div>
